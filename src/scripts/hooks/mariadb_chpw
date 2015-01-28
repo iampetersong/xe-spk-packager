@@ -1,0 +1,24 @@
+#!/bin/sh
+
+#
+# Copyright ...
+#
+
+. /var/packages/MariaDB/scripts/hooks/common
+
+conf="/var/services/web/xe/config.inc.php"
+
+if [ ! -e "$2" ]; then
+	logger -p 0 "$0: $2 not exist!"
+	exit 1
+fi
+
+[ ! -f "$conf" ] && exit 0
+
+#user="$1"
+#dbuser="$(sed -n "s|^\\s*'db_user_name'\\s*=>\\s*'\\(.*\\)',$|\\1|p" <$conf | UnquotePHP)"
+#
+#[ "$user" != "$dbuser" ] && exit 0
+#
+#pw="$(cat "$2" | QuotePHP | QuoteSed)"
+#sed -i "s|\\('db_password'\\s*=>\\s*\\).*$|\\1'$pw',|" "$conf"

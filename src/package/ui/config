@@ -1,0 +1,15 @@
+{
+	".url": {
+		"SYNO.SDS.XE": {
+			"type": "url",
+			"allUsers": true,
+			"title": "XpressEngine",
+			"desc": "app:description",
+			"texts": "texts",
+			"icon": "XE_{0}.png",
+			"protocol": "http",
+			"url": "/xe",
+			"port": "80"			
+		}
+	}
+}

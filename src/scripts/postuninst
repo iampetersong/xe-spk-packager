@@ -1,0 +1,54 @@
+#!/bin/sh
+
+#
+# Copyright ...
+#
+
+if [ "$SYNOPKG_PKG_STATUS" == "UPGRADE" ]; then
+	exit 0
+fi
+
+# Remove databases
+XE_INSTALL_CONFIG_FILE="/var/services/web/xe/config/install.config.php"
+XE_CONFIG_FILE="/var/services/web/xe/files/config/db.config.php"
+
+if [ $pkgwizard_remove_mysql ]; then
+	echo "try to remove XE databases"
+
+	if [ -f $XE_CONFIG_FILE ]; then
+		XE_DB=`cat $XE_CONFIG_FILE | grep "db_database" | cut -d "'" -f4 | uniq`
+		echo "database name = $XE_DB"
+	elif [ -f $XE_INSTALL_CONFIG_FILE ]; then
+		XE_DB=`cat $XE_INSTALL_CONFIG_FILE | grep "db_database" | cut -d "'" -f4 | uniq`
+		echo "database name = $XE_DB"
+	else
+		echo "skip, xe configuration not exists."
+	fi
+
+	if [ ! -z $XE_DB ]; then
+		/usr/bin/mysql -u root --password="$pkgwizard_mysql_password" -e "DROP DATABASE $XE_DB";
+
+		if [ $? -eq 1 ]; then
+			if [ -z "$SYNOPKG_DSM_LANGUAGE" ]; then
+				echo "Fail to drop xe database." > $SYNOPKG_TEMP_LOGFILE
+				exit 0
+			fi
+			case $SYNOPKG_DSM_LANGUAGE in
+				 *)
+				echo "Fail to drop xe database." > $SYNOPKG_TEMP_LOGFILE
+				 ;;
+			esac
+			exit 0
+		fi
+	fi
+fi
+
+# Remove xe files
+/bin/rm -rf /var/services/web/xe
+echo "xe contents removed"
+
+# Remove hook
+/bin/rm /usr/local/libexec/mariadb_chpw/XE
+echo "maria db hook removed"
+
+exit 0

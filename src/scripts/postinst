@@ -1,0 +1,202 @@
+#!/bin/sh
+
+#
+# Copyright ...
+#
+
+PKG_DIR="xe"
+
+XE_INSTALL_CONFIG_FILE="/var/services/web/xe/config/install.config.php"
+
+# Link hook
+mkdir -p /usr/local/libexec/mariadb_chpw
+ln -s /var/packages/XE/scripts/hooks/mariadb_chpw /usr/local/libexec/mariadb_chpw/XE
+
+rm -rf /var/services/web/xe
+mv /var/packages/XE/target/$PKG_DIR /var/services/web/xe
+chown -R 1023:1023 /var/services/web/xe
+
+# Create conf folder and write conf/PKG_DEPS for MariaDB
+mkdir -p /var/packages/XE/conf
+cat > /var/packages/XE/conf/PKG_DEPS << EOF
+[MariaDB]
+dsm_min_ver=5.0-4300
+EOF
+
+[ "$SYNOPKG_PKG_STATUS" = "UPGRADE" ] && exit 0
+
+echo "---------"
+echo $pkgwizard_lang_type_en
+echo $pkgwizard_lang_type_ko
+echo ""
+echo $pkgwizard_db_type_mysqli
+echo $pkgwizard_db_type_mysqli_innodb
+echo $pkgwizard_db_type_mysql
+echo $pkgwizard_db_type_mysql_innodb
+echo ""
+echo $pkgwizard_db_hostname
+echo $pkgwizard_db_port
+echo $pkgwizard_db_database
+echo $pkgwizard_db_table_prefix
+echo ""
+echo $pkgwizard_db_userid
+echo $pkgwizard_db_password
+echo ""
+echo $pkgwizard_email_address
+echo $pkgwizard_nick_name
+echo $pkgwizard_user_id
+echo $pkgwizard_password1
+echo $pkgwizard_password2
+echo ""
+echo $pkgwizard_time_zone_p0900
+echo $pkgwizard_time_zone_p0930
+echo "---------"
+
+# language
+if [ $SYNOPKG_DSM_LANGUAGE == "krn" ]; then
+    pkgwizard_lang_type=ko
+else
+    pkgwizard_lang_type=en
+fi
+
+# db type
+if $pkgwizard_db_type_mysqli ; then
+    pkgwizard_db_type=mysqli
+elif $pkgwizard_db_type_mysqli_innodb ; then
+    pkgwizard_db_type=mysqli_innodb
+elif $pkgwizard_db_type_mysql ; then
+    pkgwizard_db_type=mysql
+elif $pkgwizard_db_type_mysql_innodb ; then
+    pkgwizard_db_type=mysql_innodb
+else
+    pkgwizard_db_type=mysqli_innodb
+fi
+
+# timezone
+if $pkgwizard_time_zone_m1200 ; then
+    pkgwizard_time_zone="-1200"
+elif $pkgwizard_time_zone_m1100 ; then
+    pkgwizard_time_zone="-1100"
+elif $pkgwizard_time_zone_m1000 ; then
+    pkgwizard_time_zone="-1000"
+elif $pkgwizard_time_zone_m0930 ; then
+    pkgwizard_time_zone="-0930"
+elif $pkgwizard_time_zone_m0900 ; then
+    pkgwizard_time_zone="-0900"
+elif $pkgwizard_time_zone_m0800 ; then
+    pkgwizard_time_zone="-0800"
+elif $pkgwizard_time_zone_m0700 ; then
+    pkgwizard_time_zone="-0700"
+elif $pkgwizard_time_zone_m0600 ; then
+    pkgwizard_time_zone="-0600"
+elif $pkgwizard_time_zone_m0500 ; then
+    pkgwizard_time_zone="-0500"
+elif $pkgwizard_time_zone_m0400 ; then
+    pkgwizard_time_zone="-0400"
+elif $pkgwizard_time_zone_m0330 ; then
+    pkgwizard_time_zone="-0330"
+elif $pkgwizard_time_zone_m0300 ; then
+    pkgwizard_time_zone="-0300"
+elif $pkgwizard_time_zone_m0200 ; then
+    pkgwizard_time_zone="-0200"
+elif $pkgwizard_time_zone_m0100 ; then
+    pkgwizard_time_zone="-0100"
+elif $pkgwizard_time_zone_0000 ; then
+    pkgwizard_time_zone="0000"
+elif $pkgwizard_time_zone_p0100 ; then
+    pkgwizard_time_zone="+"
+elif $pkgwizard_time_zone_p0200 ; then
+    pkgwizard_time_zone="+0200"
+elif $pkgwizard_time_zone_p0300 ; then
+    pkgwizard_time_zone="+0300"
+elif $pkgwizard_time_zone_p0330 ; then
+    pkgwizard_time_zone="+0330"
+elif $pkgwizard_time_zone_p0400 ; then
+    pkgwizard_time_zone="+0400"
+elif $pkgwizard_time_zone_p0430 ; then
+    pkgwizard_time_zone="+0430"
+elif $pkgwizard_time_zone_p0500 ; then
+    pkgwizard_time_zone="+0500"
+elif $pkgwizard_time_zone_p0530 ; then
+    pkgwizard_time_zone="+0530"
+elif $pkgwizard_time_zone_p0545 ; then
+    pkgwizard_time_zone="+0545"
+elif $pkgwizard_time_zone_p0600 ; then
+    pkgwizard_time_zone="+0600"
+elif $pkgwizard_time_zone_p0630 ; then
+    pkgwizard_time_zone="+0630"
+elif $pkgwizard_time_zone_p0700 ; then
+    pkgwizard_time_zone="+0700"
+elif $pkgwizard_time_zone_p0800 ; then
+    pkgwizard_time_zone="+0800"
+elif $pkgwizard_time_zone_p0845 ; then
+    pkgwizard_time_zone="+0845"
+elif $pkgwizard_time_zone_p0900 ; then
+    pkgwizard_time_zone="+0900"
+elif $pkgwizard_time_zone_p0930 ; then
+    pkgwizard_time_zone="+0930"
+elif $pkgwizard_time_zone_p1000 ; then
+    pkgwizard_time_zone="+1000"
+elif $pkgwizard_time_zone_p1030 ; then
+    pkgwizard_time_zone="+1030"
+elif $pkgwizard_time_zone_p1100 ; then
+    pkgwizard_time_zone="+1100"
+elif $pkgwizard_time_zone_p1130 ; then
+    pkgwizard_time_zone="+1130"
+elif $pkgwizard_time_zone_p1200 ; then
+    pkgwizard_time_zone="+1200"
+elif $pkgwizard_time_zone_p1245 ; then
+    pkgwizard_time_zone="+1245"
+elif $pkgwizard_time_zone_p1300 ; then
+    pkgwizard_time_zone="+1300"
+elif $pkgwizard_time_zone_p1400 ; then
+    pkgwizard_time_zone="+1400"
+else
+    pkgwizard_time_zone="+0900"
+fi
+
+# make xe configuration file for auto install
+echo "make xe install config on $XE_INSTALL_CONFIG_FILE"
+echo "
+<?php
+    \$install_config = array(
+        'db_type' =>'$pkgwizard_db_type',
+        'db_port' =>'$pkgwizard_db_port',
+        'db_hostname' =>'$pkgwizard_db_hostname',
+        'db_userid' =>'$pkgwizard_db_userid',
+        'db_password' =>'$pkgwizard_db_password',
+        'db_database' =>'$pkgwizard_db_database',
+        'db_table_prefix' =>'$pkgwizard_db_table_prefix',
+        'user_rewrite' =>'N',
+        'time_zone' =>'$pkgwizard_time_zone',
+        'email_address' =>'$pkgwizard_email_address',
+        'password' =>'$pkgwizard_password1',
+        'password2' =>'$pkgwizard_password2',
+        'nick_name' =>'$pkgwizard_nick_name',
+        'user_id' =>'$pkgwizard_user_id',
+        'lang_type' =>'$pkgwizard_lang_type'
+    );
+" > $XE_INSTALL_CONFIG_FILE
+
+chown http:http $XE_INSTALL_CONFIG_FILE
+
+echo "install config"
+cat $XE_INSTALL_CONFIG_FILE
+
+if $pkgwizard_db_auto_create ; then
+    /usr/bin/mysql -u root --password="$pkgwizard_mysql_root_password" -e "CREATE DATABASE $pkgwizard_db_database";
+    if [ $? -eq 1 ]; then
+        if [ -z "$SYNOPKG_DSM_LANGUAGE" ]; then
+            echo "Fail to create xe database." > $SYNOPKG_TEMP_LOGFILE
+            exit 0
+        fi
+        case $SYNOPKG_DSM_LANGUAGE in
+             *)
+            echo "Fail to create xe database." > $SYNOPKG_TEMP_LOGFILE
+             ;;
+        esac
+        exit 0
+    fi
+fi
+
+exit 0

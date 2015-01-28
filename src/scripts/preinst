@@ -1,0 +1,28 @@
+#!/bin/sh
+
+#
+# Copyright ...
+#
+
+if [ "$SYNOPKG_PKG_STATUS" = "UPGRADE" ]; then
+	exit 0
+fi
+
+# Check existence of website root
+if [ -e "/var/services/web/xe" ]; then
+	if [ -z "$SYNOPKG_DSM_LANGUAGE" ]; then
+		echo "the path of XE already exist in web folder, please renamed or move it to other place" >$SYNOPKG_TEMP_LOGFILE
+		exit 1
+	fi
+	case $SYNOPKG_DSM_LANGUAGE in
+		krn)
+			echo "웹 폴더 아래에 XE 폴더가 이미 있습니다. XE 패키지를 설치하기 전에 폴더의 이름을 바꾸거나 이를 이동하십시오." > $SYNOPKG_TEMP_LOGFILE
+		;;
+		*)
+			echo "the path of XP already exist in web folder, please renamed or move it to other place" > $SYNOPKG_TEMP_LOGFILE
+		;;
+	esac
+	exit 1
+fi
+
+exit 0

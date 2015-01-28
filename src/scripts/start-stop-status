@@ -1,0 +1,102 @@
+#!/bin/sh
+
+#
+# Copyright ...
+#
+
+PACKAGE_DIR="/var/packages/$SYNOPKG_PKGNAME"
+PKG_APP_PATH="${PACKAGE_DIR}/target/ui"
+PKG_DESKTOP="/usr/syno/synoman/webman/3rdparty/XE"
+PKG_INDEXDB_PATH="${PACKAGE_DIR}/target/indexdb"
+DSM_INDEX_ADD="/usr/syno/bin/pkgindexer_add"
+DSM_INDEX_DEL="/usr/syno/bin/pkgindexer_del"
+PKG_ENABLE="/var/services/web/xe/enabled"
+WEBDIR="/var/services/web/xe"
+HTACCESS_FILE="$WEBDIR/.htaccess"
+HTACCESS_FILE_SYNO="$WEBDIR/.htaccess.syno"
+
+ReturnBroken() {
+	if [ "$SYNOPKG_DSM_VERSION_BUILD" -lt 2610 ]; then
+		exit 2
+	else
+		exit 150
+	fi
+}
+
+CheckEnv() {
+	[ -f "/etc.defaults/VERSION" ] || exit 1
+	DSM_VERSION=`grep ^majorversion= /etc.defaults/VERSION | cut -d'"' -f2`
+	[ -z "$DSM_VERSION" ] && exit 1
+
+	if [ $DSM_VERSION -ge 5 ]; then
+		if [ ! -f /var/packages/MariaDB/enabled ]; then
+			echo "Please run MariaDB first." > $SYNOPKG_TEMP_LOGFILE
+			exit 1
+		fi
+	fi
+}
+
+StartDaemons() {
+	CheckEnv
+	
+	if [ -d "$WEBDIR" ]; then
+		ln -sf ${PKG_APP_PATH} ${PKG_DESKTOP}
+	else
+		echo "web/xe not found."> $SYNOPKG_TEMP_LOGFILE
+		ReturnBroken
+	fi
+
+	if [ -n "$SYNOPKG_PKG_STATUS" ]; then
+		${DSM_INDEX_ADD} ${PKG_APP_PATH}/index.conf ${PKG_INDEXDB_PATH}/appindexdb
+	fi
+
+	if [ -e $HTACCESS_FILE_SYNO ]; then
+		mv $HTACCESS_FILE_SYNO $HTACCESS_FILE
+	fi
+
+	grep "Synology Inc" $HTACCESS_FILE
+	if [ 0 -eq $? ]; then
+		rm $HTACCESS_FILE
+	fi
+}
+
+StopDaemons() {
+	if [ -n "$SYNOPKG_PKG_STATUS" ]; then
+		${DSM_INDEX_DEL} ${PKG_APP_PATH}/index.conf ${PKG_INDEXDB_PATH}/appindexdb
+	fi
+	rm -f ${PKG_DESKTOP}
+	if [ -e $HTACCESS_FILE ]; then
+		mv $HTACCESS_FILE $HTACCESS_FILE_SYNO
+	fi
+	echo -e "#Synology Inc. added\nRewriteEngine On\nRewriteRule ^(.*)$ $WEBDIR/disabled.html" > $HTACCESS_FILE
+}
+
+case "$1" in
+	start)
+		StartDaemons
+		;;
+	stop)
+		StopDaemons
+		;;
+	restart)
+		StopDaemons
+		sleep 1
+		StartDaemons
+		;;
+	status)
+		if [ ! -d "$WEBDIR" ]; then
+			rm -f ${PKG_DESKTOP}
+			ReturnBroken
+		fi
+		exit 0
+		;;
+	log)
+		echo ""
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|status}" >&2
+		exit 1
+		;;
+esac
+exit 0
+

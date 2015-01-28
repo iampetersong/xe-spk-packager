@@ -1,0 +1,21 @@
+#
+#
+#
+#
+
+[app]
+description	=	"XpressEngine"
+str_meta_desc	=	"XpressEngine is the easiest Content Management System."
+
+[common]
+description	=	"XpressEngine is the easiest Content Management System."
+
+[wizard]
+err_path_exist	=	"A XpressEngine folder already exists under your Web folder. Please rename it or move it before you install the XpressEngine package."
+mysql_remove_fail	=	"However, you cannot delete the XpressEngine database due to wrong password."
+wizard_db_password_warning	=	"Wrong database password, but there is no database to remove."
+wizard_msql_password_desc_remove	=	"Please provide root password to remove the XpressEngine database."
+wizard_msql_password_label	=	"Root password"
+wizard_remove_msql_desc	=	"If you remove the XpressEngine database, all content will be deleted."
+wizard_remove_msql_title	=	"Remove XpressEngine database"
+

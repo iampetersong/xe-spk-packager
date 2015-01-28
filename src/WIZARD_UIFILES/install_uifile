@@ -1,0 +1,366 @@
+[
+    {
+        "step_title":"License agreement",
+        "items":[
+            {
+                "type":"multiselect",
+                "desc" : "<p>Copyright (C) NAVER &lt;http://www.navercorp.com&gt;</p> <p>\"XpressEngine (XE)\" is an opensource and being developed in the opensource project. For more information, please see the link below.</p> <ul> <li>Official website: <a href=\"http://www.xpressengine.com\">http://www.xpressengine.com</a></li> <li>Official Repository: <a href=\"http://github.com/xpressengine\">http://github.com/xpressengine</a></li> </ul> <p>\"XpressEngine (XE)\" is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.</p> <p>This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.</p> <p>You should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA</p> <ul> <li>License : <a href=\"http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html\" target=\"_blank\">GNU Lesser General Public License, version 2.1</a></li> </ul>",
+                "subitems":[
+                    {
+                        "key":"pkgwizard_license_agree",
+                        "desc":"I understand the license. I agree.",
+                        "validator":{
+                            "fn": "{var v = arguments[0]; if (!v) return 'You must accept the license agreement.'; return true;}"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "step_title":"Choose database type",
+        "items":[
+            {
+                "type":"singleselect",
+                "subitems":[
+                    {
+                        "key":"pkgwizard_db_type_mysqli",
+                        "desc":"mysqli<br />Use MySQL as a database with mysqli*() functions in php.<br />Transactions will not be processed since DB file is created in myisam."
+                    },
+                    {
+                        "key":"pkgwizard_db_type_mysqli_innodb",
+                        "desc":"mysqli_innodb<br />Use MySQL as a database with innodb.<br />Transactions will be processed with innodb.",
+                        "defaultValue":true
+                    },
+                    {
+                        "key":"pkgwizard_db_type_mysql",
+                        "desc":"mysql<br />Use MySQL as a database with mysql*() functions in php.<br />Transactions will not be processed since DB file is created in myisam."
+                    },
+                    {
+                        "key":"pkgwizard_db_type_mysql_innodb",
+                        "desc":"mysql_innodb<br />Use MySQL as a database with innodb.<br />Transactions will be processed with innodb."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "step_title":"Input Database information",
+        "items":[
+            {
+                "type":"textfield",
+                "desc":"DB Server info.",
+                "subitems":[
+                    {
+                        "key":"pkgwizard_db_hostname",
+                        "desc":"DB Hostname",
+                        "emptyText":"localhost",
+                        "defaultValue":"localhost",
+                        "validator":{
+                            "allowBlank":false
+                        }
+                    },
+                    {
+                        "key":"pkgwizard_db_port",
+                        "desc":"DB Port",
+                        "emptyText":"3306",
+                        "defaultValue":"3306",
+                        "validator":{
+                            "allowBlank":false
+                        }
+                    },
+                    {
+                        "key":"pkgwizard_db_database",
+                        "desc":"DB Name",
+                        "emptyText":"xe",
+                        "defaultValue":"xe",
+                        "validator":{
+                            "allowBlank":false
+                        }
+                    },
+                    {
+                        "key":"pkgwizard_db_table_prefix",
+                        "desc":"Table prefix",
+                        "emptyText":"xe",
+                        "defaultValue":"xe",
+                        "validator":{
+                            "allowBlank":false
+                        }
+                    }
+                ]
+            },
+            {
+                "type":"textfield",
+                "subitems":[
+                    {
+                        "type":"textfield",
+                        "key":"pkgwizard_db_userid",
+                        "desc":"DB User ID",
+                        "validator":{
+                            "allowBlank":false
+                        }
+                    }
+                ]
+            },
+            {
+                "type":"password",
+                "subitems":[
+                    {
+                        "key":"pkgwizard_db_password",
+                        "desc":"DB User Password",
+                        "validator":{
+                            "allowBlank":false
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "step_title":"Auto create XpressEngine Database",
+        "items":[
+            {
+                "type":"multiselect",
+                "subitems":[
+                    {
+                        "key":"pkgwizard_db_auto_create",
+                        "desc":"Create a database during install XpressEngine. (optional)"
+                    }
+                ]
+            },
+            {
+                "type":"password",
+                "desc":"",
+                "subitems":[
+                    {
+                        "key":"pkgwizard_mysql_root_password",
+                        "desc":"Database 'root' password"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "step_title":"Enter XpressEngine Administrator information",
+        "items":[
+            {
+                "type":"textfield",
+                "subitems":[
+                    {
+                        "key":"pkgwizard_email_address",
+                        "desc":"E-mail",
+                        "validator":{
+                            "allowBlank":false,
+                            "vtype":"email"
+                        }
+                    },
+                    {
+                        "key":"pkgwizard_nick_name",
+                        "desc":"Nickname",
+                        "type":"textfield",
+                        "validator":{
+                            "allowBlank":false
+                        }
+                    },
+                    {
+                        "key":"pkgwizard_user_id",
+                        "desc":"Login ID",
+                        "type":"textfield",
+                        "validator":{
+                            "allowBlank":false
+                        }
+                    }
+                ]
+            },
+            {
+                "type":"password",
+                "subitems":[
+                    {
+                        "key":"pkgwizard_password1",
+                        "desc":"Password",
+                        "type":"password",
+                        "validator":{
+                            "allowBlank":false
+                        }
+                    },
+                    {
+                        "key":"pkgwizard_password2",
+                        "desc":"Password confirm",
+                        "type":"password",
+                        "validator":{
+                            "allowBlank":false
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "step_title":"Select timezone",
+        "items":[
+            {
+                "type":"singleselect",
+                "desc":"If the server time and the time on your location don't accord each other, you can set the time to be same as your location by using the time zone",
+                "subitems":[
+                    {
+                        "key":"pkgwizard_time_zone_m1200",
+                        "desc":"Baker Island Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_m1100",
+                        "desc":"Niue Time, Samoa Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_m1000",
+                        "desc":"Hawaii-Aleutian Standard Time, Cook Island Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_m0930",
+                        "desc":"Marquesas Islands Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_m0900",
+                        "desc":"Alaska Standard Time, Gambier Island Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_m0800",
+                        "desc":"Pacific Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_m0700",
+                        "desc":"Mountain Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_m0600",
+                        "desc":"Central Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_m0500",
+                        "desc":"Eastern Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_m0400",
+                        "desc":"Atlantic Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_m0330",
+                        "desc":"Newfoundland Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_m0300",
+                        "desc":"Amazon Standard Time, Central Greenland Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_m0200",
+                        "desc":"Fernando de Noronha Time, South Georgia &amp; the South Sandwich Islands Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_m0100",
+                        "desc":"Azores Standard Time, Cape Verde Time, Eastern Greenland Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_0000",
+                        "desc":"Western European Time, Greenwich Mean Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0100",
+                        "desc":"Central European Time, West African Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0200",
+                        "desc":"Eastern European Time, Central African Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0300",
+                        "desc":"Moscow Standard Time, Eastern African Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0330",
+                        "desc":"Iran Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0400",
+                        "desc":"Gulf Standard Time, Samara Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0430",
+                        "desc":"Afghanistan Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0500",
+                        "desc":" Pakistan Standard Time, Yekaterinburg Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0530",
+                        "desc":"Indian Standard Time, Sri Lanka Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0545",
+                        "desc":"Nepal Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0600",
+                        "desc":"Bangladesh Time, Bhutan Time, Novosibirsk Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0630",
+                        "desc":"Cocos Islands Time, Myanmar Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0700",
+                        "desc":"Indochina Time, Krasnoyarsk Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0800",
+                        "desc":"China Standard Time, Australian Western Standard Time, Irkutsk Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0845",
+                        "desc":"Southeastern Western Australia Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0900",
+                        "desc":"Korea Standard Time, Japan Standard Time",
+                        "defaultValue":true
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p0930",
+                        "desc":"Australian Central Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p1000",
+                        "desc":"Australian Eastern Standard Time, Vladivostok Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p1030",
+                        "desc":"Lord Howe Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p1100",
+                        "desc":"Solomon Island Time, Magadan Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p1130",
+                        "desc":"Norfolk Island Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p1200",
+                        "desc":"New Zealand Time, Fiji Time, Kamchatka Standard Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p1245",
+                        "desc":"Chatham Islands Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p1300",
+                        "desc":"Tonga Time, Phoenix Islands Time"
+                    },
+                    {
+                        "key":"pkgwizard_time_zone_p1400",
+                        "desc":"Line Island Time"
+                    }
+                ]
+            }
+        ]
+    }
+]

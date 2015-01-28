@@ -1,0 +1,21 @@
+#
+#
+#
+#
+
+[app]
+description	=	"XpressEngine"
+str_meta_desc	=	"XpressEngine은 누구나 쉽고 편하고 자유롭게 콘텐츠를 발행을 할 수 있도록 하기 위한 CMS(Content Management System)입니다. 급변하는 인터넷 환경과 다양한 기능의 요구에 부응하기 위해 XpressEngine은 다음과 같은 특징을 가지고 있습니다."
+
+[common]
+description	=	"XpressEngine은 누구나 쉽고 편하고 자유롭게 콘텐츠를 발행을 할 수 있도록 하기 위한 CMS(Content Management System)입니다. 급변하는 인터넷 환경과 다양한 기능의 요구에 부응하기 위해 XpressEngine은 다음과 같은 특징을 가지고 있습니다."
+
+[wizard]
+err_path_exist	=	"웹 폴더 아래에 XpressEngine 폴더가 이미 있습니다. XpressEngine 패키지를 설치하기 전에 폴더의 이름을 바꾸거나 이를 이동하십시오."
+mysql_remove_fail	=	"그러나 패스워드 오류로 XpressEngine 데이터베이스를 삭제할 수 없습니다."
+wizard_db_password_warning	=	"데이터베이스 패스워드가 잘못되었지만 제거할 데이터베이스가 없습니다."
+wizard_msql_password_desc_remove	=	"root 패스워드를 제공하여 XpressEngine 데이터베이스를 삭제하십시오."
+wizard_msql_password_label	=	"Root 패스워드"
+wizard_remove_msql_desc	=	"XpressEngine 데이터베이스를 제거하면 모든 내용이 삭제됩니다."
+wizard_remove_msql_title	=	"XpressEngine 데이터베이스 제거"
+

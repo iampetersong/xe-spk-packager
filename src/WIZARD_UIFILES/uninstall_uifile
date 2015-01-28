@@ -1,0 +1,21 @@
+[{
+	"step_title": "Remove XpressEngine database",
+	"items": [
+		{
+			"type": "multiselect",
+			"desc": "If you remove the XpressEngine database, all content will be deleted.",
+			"subitems": [{
+				"key": "pkgwizard_remove_mysql",
+				"desc": "Remove XpressEngine database"
+			}]
+		},
+		{
+			"type": "password",
+			"desc": "Please provide root password to remove the XpressEngine database.",
+			"subitems": [{
+				"key": "pkgwizard_mysql_password",
+				"desc": "Root password"
+			}]
+		}
+	]
+}]
