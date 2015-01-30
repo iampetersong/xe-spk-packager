@@ -9,6 +9,7 @@ XpressEngine을 시놀로지 NAS용 설치 패키지(spk file)로 손쉽게 패�
 1. XE배포본을 ${PROJECT_HOME}/xe에 복사한다.
 > cp ${XE_DIST_FILE} ${PROJECT_HOME}/xe/
 2. spk파일을 만든다.
+`Synology developer center에서 배포하는 pkgtools가 있지만 편의상 아래 스크립트를 만들어서 사용합니다.`
 > ${PROJECT_HOME}/make.sh ${XE_VERSION}
 3. ./build 디렉토리에 패키지가 생성된다.
 > ls ${PROJECT_HOME}/build/xe-${VERSION}-unsigned.xpk
