@@ -2,7 +2,7 @@
 
 #### 개요
 
-XpressEngine을 시놀로지 NAS용 설치 패키지(spk file)로 손쉽게 패키징 할 수 있도록 해줍니다.
+이 소프트웨어는 XpressEngine(http://xpressengine.com)에서 배포하는 XE배포본(.zip)을 Synology NAS용 소프트웨어패키지(.spk)로 만들어줍니다.
 
 #### 사용방법
 
